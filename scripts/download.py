@@ -11,7 +11,11 @@ from requests.exceptions import HTTPError
 
 def hf_download(repo_id: Optional[str] = None, hf_token: Optional[str] = None) -> None:
     from huggingface_hub import snapshot_download
-    os.makedirs(f"checkpoints/{repo_id}", exist_ok=True)
+    if os.path.exists("checkpoints"):
+        print("Model downloaded successfully")
+        return
+    else:
+        os.makedirs(f"checkpoints/{repo_id}", exist_ok=True)
     try:
         snapshot_download(repo_id, local_dir=f"checkpoints/{repo_id}", local_dir_use_symlinks=False, token=hf_token)
     except HTTPError as e:
@@ -19,6 +23,7 @@ def hf_download(repo_id: Optional[str] = None, hf_token: Optional[str] = None) -
             print("You need to pass a valid `--hf_token=...` to download private checkpoints.")
         else:
             raise e
+        
 
 if __name__ == '__main__':
     import argparse

@@ -45,11 +45,15 @@ class ModelArgs:
             return cls(**transformer_configs[name])
         # fuzzy search
         config = [config for config in transformer_configs if config in str(name).upper() or config in str(name)]
+        breakpoint()
         assert len(config) == 1, name
+        
         return cls(**transformer_configs[config[0]])
 
 
 transformer_configs = {
+    "tiny-random-llama-2": dict(block_size=128, vocab_size=3000, n_layer=2, n_head=4, dim=16, rope_base=10000),
+
     "CodeLlama-7b-Python-hf": dict(block_size=16384, vocab_size=32000, n_layer=32, dim = 4096, rope_base=1000000),
     "7B": dict(n_layer=32, n_head=32, dim=4096),
     "13B": dict(n_layer=40, n_head=40, dim=5120),

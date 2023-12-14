@@ -530,9 +530,10 @@ def quantize(
     print("Loading model ...")
     t0 = time.time()
 
-    with torch.device('meta'):
-        model = Transformer.from_name(checkpoint_path.parent.name)
+    # with torch.device(device):
+    #     model = Transformer.from_name(checkpoint_path.parent.name)
 
+    model = Transformer.from_name(checkpoint_path.parent.name)
     checkpoint = torch.load(str(checkpoint_path), mmap=True, weights_only=True)
     model.load_state_dict(checkpoint, assign=True)
     model = model.to(dtype=precision, device=device)
