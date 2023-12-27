@@ -1,0 +1,1 @@
+python3 scripts/download.py --repo_id $1

@@ -1,0 +1,1 @@
+python3 scripts/convert_hf_checkpoint.py --checkpoint_dir checkpoints/$1
